@@ -1,0 +1,44 @@
+name: Scan Dependencies using listen.dev
+
+on:
+  pull_request:
+env:
+  LSTN_ENDPOINT: https://npm-staging.listen.dev
+  
+  
+jobs:
+  lstn-cli-setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v3
+        with:
+          repository: listendev/lstn
+
+      - name: Build lstn CLI from source
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.19.4'
+          cache: true
+      - run: |
+          go build -o make/make make/main.go
+          make/make lstn
+          mv lstn /usr/local/bin/ && chmod +x /usr/local/bin/lstn
+          lstn version 
+          
+          
+      - name: Checkout the test repo
+        uses: actions/checkout@v3
+        
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install Dependencies
+        run: |
+          npm install js-yaml progress
+          
+      - name: Run script
+        run: node scan_deps.js
