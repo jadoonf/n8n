@@ -41,4 +41,4 @@ jobs:
           npm install js-yaml progress
           
       - name: Run script
-        run: node scan_deps.js
+        run: node .github/scripts/scan_deps.js
