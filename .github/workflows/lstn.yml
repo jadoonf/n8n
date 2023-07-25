@@ -1,10 +1,12 @@
 name: Scan Dependencies using listen.dev
-
 on:
+  push:
+    branches:
+      - master
   pull_request:
+
 env:
   LSTN_ENDPOINT: https://npm-staging.listen.dev
-  
   
 jobs:
   lstn-cli-setup:
