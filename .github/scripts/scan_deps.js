@@ -4,7 +4,7 @@ const { execSync } = require('child_process');
 const ProgressBar = require('progress');
 
 // Path to the pnpm lockfile
-const lockfilePath = '$GITHUB_WORKSPACE/pnpm-lock.yaml'; 
+const lockfilePath = 'pnpm-lock.yaml'; 
 
 // Load the lockfile
 const lockfile = yaml.load(fs.readFileSync(lockfilePath, 'utf8'));
